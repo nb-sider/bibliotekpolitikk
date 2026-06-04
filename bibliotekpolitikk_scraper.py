@@ -40,7 +40,9 @@ KEYWORDS = ["bibliotek", "lesestrategi", "leselyst",
 RELEVANTE_MINISTRE = re.compile(r"kultur|kunnskap", re.IGNORECASE)
 MONTHS_BACK = 12
 OUTDIR = Path(__file__).parent
-HEADERS = {"User-Agent": "Mozilla/5.0 (bibliotekpolitikk-overvaking; kontakt: trond.myklebust@gmail.com)"}
+# Sett inn e-postadressen til den som drifter løsningen, slik at
+# nettstedseierne kan ta kontakt hvis scrapingen skaper problemer:
+HEADERS = {"User-Agent": "Mozilla/5.0 (bibliotekpolitikk-overvaking; kontakt: tm@nb.no)"}
 PAUSE = 1.0  # sekunder mellom kall (vær høflig)
 
 STORTINGET_API = "https://data.stortinget.no/eksport"

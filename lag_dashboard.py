@@ -37,7 +37,7 @@ MAL = """<!DOCTYPE html>
   header p { margin: 0; color: var(--muted); font-size: 13px; }
   .wrap { max-width: 1280px; margin: 0 auto; padding: 20px 28px 60px; }
   .stats { display: flex; gap: 10px; flex-wrap: nowrap; overflow-x: auto;
-           margin: 18px 0; padding-bottom: 4px; }
+           margin: 18px 0; padding: 4px 4px 8px; }
   .stat { background: var(--card); border: 1px solid var(--line); border-radius: 16px;
           padding: 10px 14px; flex: 1 1 0; min-width: 0; white-space: nowrap;
           text-align: center; }
