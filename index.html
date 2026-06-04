@@ -37,7 +37,12 @@
   .controls input, .controls select {
     padding: 9px 14px; border: 1px solid var(--line); border-radius: 999px;
     font-size: 14px; background: var(--card); }
-  .controls input { flex: 1; min-width: 220px; }
+  .controls input { flex: 1; min-width: 280px; }
+  .controls select {
+    -webkit-appearance: none; appearance: none;
+    padding-right: 30px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%2317181B' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 12px center; }
   .controls input:focus, .controls select:focus, label.cb:focus-within {
     outline: 2px solid var(--nb-burgundy); outline-offset: 1px; }
   .hit { background: var(--card); border: 1px solid var(--line); border-radius: 24px;
@@ -52,9 +57,11 @@
   .tag.kw { background: #5a7d2a; }
   .tag.ny { background: #d4731c; font-weight: 700; }
   .stat.ny b { color: #d4731c; }
-  label.cb { display: flex; align-items: center; gap: 6px; font-size: 14px;
+  label.cb { display: inline-flex; align-items: center; gap: 5px; font-size: 14px;
              background: var(--card); border: 1px solid var(--line);
-             border-radius: 999px; padding: 9px 14px; cursor: pointer; }
+             border-radius: 999px; padding: 9px 12px; cursor: pointer;
+             flex: 0 0 auto; white-space: nowrap; }
+  label.cb input { margin: 0; }
   button.mer { border-radius: 999px; }
   .utdrag { font-size: 13px; color: #444; margin-top: 7px; line-height: 1.45; }
   mark { background: #f3d9a4; color: inherit; border-radius: 3px; padding: 0 2px; }
@@ -75,7 +82,7 @@
     <span>Nasjonalbiblioteket</span>
   </div>
   <h1>Bibliotekpolitikk – regjeringen.no og stortinget.no</h1>
-  <p>Søkeord: bibliotek, lesestrategi, leselyst, nasjonalbiblioteket, kulturarv &nbsp;•&nbsp; Sist oppdatert: 04.06.2026 kl. 10:06</p>
+  <p>Søkeord: bibliotek, lesestrategi, leselyst, nasjonalbiblioteket, kulturarv &nbsp;•&nbsp; Sist oppdatert: 04.06.2026 kl. 12:25</p>
 </header>
 <div class="wrap">
   <div class="stats" id="stats"></div>
