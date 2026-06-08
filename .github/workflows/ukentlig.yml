@@ -2,7 +2,7 @@ name: Ukentlig oppdatering
 
 on:
   schedule:
-    - cron: "0 6 * * 1"   # mandag kl. 06:00 UTC (07:00/08:00 norsk tid)
+    - cron: "0 4 * * 1"   # mandag kl. 04:00 UTC (05:00/06:00 norsk tid)
   workflow_dispatch:        # gjør det mulig å kjøre manuelt fra Actions-fanen
 
 permissions:
