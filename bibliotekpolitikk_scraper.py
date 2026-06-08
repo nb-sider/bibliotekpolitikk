@@ -40,9 +40,7 @@ KEYWORDS = ["bibliotek", "lesestrategi", "leselyst",
 RELEVANTE_MINISTRE = re.compile(r"kultur|kunnskap", re.IGNORECASE)
 MONTHS_BACK = 12
 OUTDIR = Path(__file__).parent
-# Sett inn e-postadressen til den som drifter løsningen, slik at
-# nettstedseierne kan ta kontakt hvis scrapingen skaper problemer:
-HEADERS = {"User-Agent": "Mozilla/5.0 (bibliotekpolitikk-overvaking; kontakt: tm@nb.no)"}
+HEADERS = {"User-Agent": "Mozilla/5.0 (bibliotekpolitikk-overvaking; kontakt: trond.myklebust@gmail.com)"}
 PAUSE = 1.0  # sekunder mellom kall (vær høflig)
 
 STORTINGET_API = "https://data.stortinget.no/eksport"
@@ -299,24 +297,25 @@ def scrape_regjeringen(sist_kjort=None, kjente_lenker=None):
                      if re.search(r"/id\d{4,}/?", a.get("href", ""))
                      and not re.search(r"/dep/[^/]+/org/", a.get("href", ""))
                      and a.get_text(strip=True)]
-            new = 0
+            resultater = 0  # ekte søketreff (med dato) på denne siden
             for a in links:
                 href = a["href"].split("?")[0]
                 if not href.startswith("http"):
                     href = "https://www.regjeringen.no" + href
                 title = a.get_text(" ", strip=True)
-                if href in per_url:
-                    # allerede funnet via annet søkeord - legg bare til taggen
-                    kws = per_url[href]["nokkelord"]
-                    if kw not in kws:
-                        per_url[href]["nokkelord"] = f"{kws}, {kw}"
-                    continue
                 # dato og type ligger i samme listeelement for ekte søketreff;
                 # meny-/footerlenker har ikke dato og hoppes over
                 li = a.find_parent("li") or a.find_parent("div")
                 context = li.get_text(" ", strip=True)[:300] if li else ""
                 m = re.search(r"(\d{2}\.\d{2}\.\d{4})", context)
                 if not m:
+                    continue
+                resultater += 1
+                if href in per_url:
+                    # allerede funnet via annet søkeord - legg bare til taggen
+                    kws = per_url[href]["nokkelord"]
+                    if kw not in kws:
+                        per_url[href]["nokkelord"] = f"{kws}, {kw}"
                     continue
                 per_url[href] = {
                     "kilde": "Regjeringen",
@@ -327,9 +326,11 @@ def scrape_regjeringen(sist_kjort=None, kjente_lenker=None):
                     "nokkelord": kw,
                     "utdrag": context,
                 }
-                new += 1
-            if new == 0:
-                break  # tom side = ferdig
+            # Stopp først når en side ikke har NOEN søketreff (reell slutt),
+            # ikke når den mangler nye - en side kan bestå av dupletter fra
+            # et tidligere søkeord uten at vi er ved slutten.
+            if resultater == 0:
+                break
 
     # Verifiser bare nye sider (kjente beholdes som de er)
     nye = [h for u, h in per_url.items() if u not in (kjente_lenker or set())]
